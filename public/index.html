@@ -4,17 +4,44 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Camera Capture App</title>
+    <title>🪔 Diwali Photo Capture 🪔</title>
     <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <h2>Capture & Send Photo</h2>
-    <video id="video" autoplay playsinline></video><br />
-    <button id="capture">Capture</button>
-    <canvas id="canvas"></canvas><br />
-    <button id="send">Send to Email</button>
-    <p id="status"></p>
+    <div class="container">
+        <div class="header">
+            <h1>🪔 Happy Diwali 🪔</h1>
+            <p class="subtitle">Capture & Share Your Festive Moments</p>
+        </div>
+        
+        <div class="camera-section">
+            <video id="video" autoplay playsinline></video>
+            <canvas id="canvas"></canvas>
+        </div>
+        
+        <div class="controls">
+            <button id="capture" class="btn-capture">📸 Capture Photo</button>
+            <button id="send" class="btn-send">✨ Send to Email ✨</button>
+        </div>
+        
+        <p id="status" class="status"></p>
+        
+        <div class="decorations">
+            <div class="diya">🪔</div>
+            <div class="diya">🪔</div>
+            <div class="diya">🪔</div>
+        </div>
+    </div>
+    
+    <div class="fireworks">
+        <div class="firework">✨</div>
+        <div class="firework">🎆</div>
+        <div class="firework">✨</div>
+        <div class="firework">🎇</div>
+    </div>
+    
     <script src="script.js"></script>
 </body>
 
