@@ -1,11 +1,16 @@
 import express from "express";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+import path from "path";
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.use(express.json({ limit: "10mb" }));
 app.use(express.static("public"));
+
+app.get("/games", (req, res) => {
+    res.sendFile(path.resolve("public/games.html"));
+});
 app.post("/send-mail", async (req, res) => {
     const { image } = req.body;
     if (!image) return res.status(400).json({ message: "No image received" });
