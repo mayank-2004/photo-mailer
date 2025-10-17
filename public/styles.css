@@ -80,7 +80,7 @@ video, canvas {
     margin: 30px 0;
 }
 
-.btn-capture, .btn-send, .btn-games {
+.btn-capture, .btn-end-session, .btn-games {
     padding: 15px 30px;
     margin: 10px;
     border: none;
@@ -103,14 +103,20 @@ video, canvas {
     box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
 }
 
-.btn-send {
-    background: linear-gradient(45deg, #ffcc02, #ff6b35);
-    color: #2c1810;
+.btn-end-session {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    color: white;
 }
 
-.btn-send:hover {
+.btn-end-session:hover {
     transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(255, 204, 2, 0.4);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+.btn-end-session:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 .btn-games {
@@ -134,6 +140,16 @@ video, canvas {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.photo-counter {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 20px;
+    border-radius: 25px;
+    margin: 15px 0;
+    font-weight: 600;
+    color: #d35400;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .decorations {
@@ -273,7 +289,7 @@ video, canvas {
         font-size: 2rem;
     }
     
-    .btn-capture, .btn-send, .btn-games {
+    .btn-capture, .btn-end-session, .btn-games {
         padding: 12px 25px;
         font-size: 1rem;
     }

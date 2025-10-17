@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -55,4 +55,387 @@
     </div>
 </body>
 
+</html> -->
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🎲 Diwali Dice Game 🎲</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff6b35, #f7931e, #ffd700);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #d35400;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            color: #e67e22;
+            font-size: 1.2em;
+        }
+
+        .dice-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            perspective: 1000px;
+        }
+
+        .dice {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(145deg, #fff, #f0f0f0);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            user-select: none;
+        }
+
+        .dice:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .dice.rolling {
+            animation: roll 1s ease-in-out;
+        }
+
+        @keyframes roll {
+            0%, 100% { transform: rotateX(0deg) rotateY(0deg); }
+            25% { transform: rotateX(180deg) rotateY(90deg); }
+            50% { transform: rotateX(360deg) rotateY(180deg); }
+            75% { transform: rotateX(540deg) rotateY(270deg); }
+        }
+
+        .roll-button {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            display: block;
+            margin: 0 auto 30px;
+        }
+
+        .roll-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .roll-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .result-section {
+            background: linear-gradient(135deg, #fff5e6, #ffe6cc);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .result-section.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .selected-person {
+            font-size: 2em;
+            color: #d35400;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .group-info {
+            font-size: 1.2em;
+            color: #e67e22;
+            margin-bottom: 20px;
+        }
+
+        .activity {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.3em;
+            color: #8b4513;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-top: 15px;
+        }
+
+        .activity-emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+
+        .back-button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            font-weight: 600;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .diya {
+            position: absolute;
+            font-size: 2em;
+            animation: flicker 2s ease-in-out infinite;
+        }
+
+        .diya:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .diya:nth-child(2) { top: 20%; right: 10%; animation-delay: 0.5s; }
+        .diya:nth-child(3) { bottom: 10%; left: 15%; animation-delay: 1s; }
+        .diya:nth-child(4) { bottom: 20%; right: 15%; animation-delay: 1.5s; }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .firework {
+            position: absolute;
+            font-size: 2em;
+            animation: burst 3s ease-out infinite;
+        }
+
+        .firework:nth-child(1) { top: 15%; left: 20%; animation-delay: 0s; }
+        .firework:nth-child(2) { top: 25%; right: 20%; animation-delay: 1s; }
+        .firework:nth-child(3) { bottom: 15%; left: 25%; animation-delay: 2s; }
+        .firework:nth-child(4) { bottom: 25%; right: 25%; animation-delay: 1.5s; }
+
+        @keyframes burst {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(2); }
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2em; }
+            .dice { width: 100px; height: 100px; font-size: 3em; }
+            .selected-person { font-size: 1.5em; }
+            .activity { font-size: 1.1em; }
+        }
+    </style>
+</head>
+<body>
+    <div class="decorations">
+        <div class="diya">🪔</div>
+        <div class="diya">🪔</div>
+        <div class="diya">🪔</div>
+        <div class="diya">🪔</div>
+        <div class="firework">✨</div>
+        <div class="firework">🎆</div>
+        <div class="firework">✨</div>
+        <div class="firework">🎇</div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎲 Diwali Dice Game 🎲</h1>
+            <p class="subtitle">Roll the dice to pick a lucky person for a fun activity!</p>
+        </div>
+
+        <button class="roll-button" id="rollButton">🎲 Roll the Dice!</button>
+
+        <div class="dice-container">
+            <div class="dice" id="dice">🎲</div>
+        </div>
+
+        <div class="result-section" id="resultSection">
+            <div class="selected-person" id="selectedPerson">🎉 Roll the dice to begin! 🎉</div>
+            <div class="group-info" id="groupInfo"></div>
+            <div class="activity" id="activity"></div>
+        </div>
+
+        <button class="back-button" onclick="window.location.href='/'">📸 Back to Photo Capture</button>
+    </div>
+
+    <script>
+        // 6 groups with 6 members each
+        const groups = [
+            {
+                groupName: "Team Sparkle ✨",
+                members: ["Rahul", "Priya", "Amit", "Sneha", "Rohan", "Kavya"]
+            },
+            {
+                groupName: "Team Fireworks 🎆",
+                members: ["Vikram", "Ananya", "Karan", "Diya", "Arjun", "Meera"]
+            },
+            {
+                groupName: "Team Diya 🪔",
+                members: ["Sanjay", "Pooja", "Aditya", "Riya", "Nikhil", "Ishita"]
+            },
+            {
+                groupName: "Team Rangoli 🎨",
+                members: ["Manish", "Shreya", "Varun", "Neha", "Akash", "Tanvi"]
+            },
+            {
+                groupName: "Team Sweets 🍬",
+                members: ["Rajesh", "Anjali", "Siddharth", "Kriti", "Harsh", "Pallavi"]
+            },
+            {
+                groupName: "Team Celebration 🎊",
+                members: ["Deepak", "Simran", "Gaurav", "Nisha", "Mohit", "Divya"]
+            }
+        ];
+
+        // Fun Diwali activities
+        const activities = [
+            { emoji: "💃", text: "Perform a 30-second Bollywood dance!" },
+            { emoji: "🎤", text: "Sing your favorite Diwali song!" },
+            { emoji: "🤣", text: "Tell your funniest Diwali memory!" },
+            { emoji: "🪔", text: "Share your best Diwali decoration tip!" },
+            { emoji: "🍬", text: "Describe your favorite Diwali sweet in a poetic way!" },
+            { emoji: "🎭", text: "Act out lighting a diya without speaking!" },
+            { emoji: "📸", text: "Strike your best festive pose for a photo!" },
+            { emoji: "🎨", text: "Draw a quick rangoli design in the air!" },
+            { emoji: "🙏", text: "Share a Diwali blessing or wish for everyone!" },
+            { emoji: "🎪", text: "Do your best Diwali firework impression!" },
+            { emoji: "👑", text: "Give a motivational speech about why Diwali is special!" },
+            { emoji: "🎁", text: "Describe the perfect Diwali gift without saying what it is!" }
+        ];
+
+        const dice = document.getElementById('dice');
+        const rollButton = document.getElementById('rollButton');
+        const resultSection = document.getElementById('resultSection');
+        const selectedPerson = document.getElementById('selectedPerson');
+        const groupInfo = document.getElementById('groupInfo');
+        const activity = document.getElementById('activity');
+
+        const diceEmojis = ['⚀', '⚁', '⚂', '⚃', '⚄', '⚅'];
+
+        rollButton.addEventListener('click', rollDice);
+        dice.addEventListener('click', rollDice);
+
+        function rollDice() {
+            if (dice.classList.contains('rolling')) return;
+
+            rollButton.disabled = true;
+            dice.classList.add('rolling');
+            resultSection.classList.remove('show');
+
+            // Animate dice rolling
+            let count = 0;
+            const interval = setInterval(() => {
+                dice.textContent = diceEmojis[Math.floor(Math.random() * 6)];
+                count++;
+                if (count > 10) {
+                    clearInterval(interval);
+                    finishRoll();
+                }
+            }, 100);
+        }
+
+        function finishRoll() {
+            // Generate random number 1-6
+            const diceNumber = Math.floor(Math.random() * 6) + 1;
+            dice.textContent = diceEmojis[diceNumber - 1];
+
+            // Select random group
+            const randomGroup = groups[Math.floor(Math.random() * groups.length)];
+            
+            // Select random member from that group
+            const randomMember = randomGroup.members[Math.floor(Math.random() * randomGroup.members.length)];
+            
+            // Select random activity
+            const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+
+            // Display results
+            setTimeout(() => {
+                dice.classList.remove('rolling');
+                selectedPerson.textContent = `🎉 ${randomMember} 🎉`;
+                groupInfo.textContent = `From ${randomGroup.groupName}`;
+                activity.innerHTML = `<span class="activity-emoji">${randomActivity.emoji}</span>${randomActivity.text}`;
+                resultSection.classList.add('show');
+                rollButton.disabled = false;
+            }, 500);
+        }
+
+        // Show initial state
+        setTimeout(() => {
+            resultSection.classList.add('show');
+        }, 300);
+    </script>
+</body>
 </html>
